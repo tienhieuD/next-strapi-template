@@ -1,0 +1,34 @@
+{
+    "layouts": {
+        "edit": [
+            [
+                {
+                    "name": "title",
+                    "size": 6
+                },
+                {
+                    "name": "description",
+                    "size": 6
+                }
+            ],
+            [
+                {
+                    "name": "backImgUrl",
+                    "size": 6
+                },
+                {
+                    "name": "usedTimes",
+                    "size": 4
+                }
+            ]
+        ],
+        "editRelations": [],
+        "list": [
+            "id",
+            "title",
+            "backImgUrl",
+            "description",
+            "usedTimes"
+        ]
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "global": {
+    "siteName": "FTech CMS",
+    "defaultSeo": {
+      "metaTitle": "FTech",
+      "metaDescription": "Touch the Future",
+      "metaImage": null,
+      "preventIndexing": false
+    },
+    "favicon": null
+  }
+}
