@@ -13,6 +13,12 @@
             ],
             [
                 {
+                    "name": "description",
+                    "size": 12
+                }
+            ],
+            [
+                {
                     "name": "defaultSeo",
                     "size": 12
                 }

@@ -12,10 +12,7 @@ async function initDefaultLocale() {
     //         key: 'default_locale',
     //     })
     //     .set({ value: "vi" });
-    const locales = [
-        { name: "English (en)", code: "en", },
-        { name: "Vietnamese (vi)", code: "vi", }
-    ]
+    const locales = require("../../../data/locale.json")
 
     // Find the ID of the public role
     const defs = locales.map(async ({ name, code }) => {

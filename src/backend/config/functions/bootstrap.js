@@ -43,11 +43,11 @@ module.exports = async () => {
     strapi.log.info('Bootstrap running...');
 
     await configPublicPermisson()
-    await initDefaultLocale()
     await configViews()
-
+    
     const shouldImportSeedData = await isFirstRun();
     if (shouldImportSeedData) {
+        await initDefaultLocale()
         await importSeedData();
     }
 
