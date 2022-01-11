@@ -1,0 +1,74 @@
+version: "3.7"
+
+networks:
+  strapi-network:
+    driver: bridge
+  
+volumes:
+  strapi-uploads:
+    driver: local
+  mongo-database:
+    driver: local
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: strapi-mongodb
+    volumes:
+      - mongo-database:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: strapi
+      MONGO_INITDB_ROOT_PASSWORD: strapi
+    restart: unless-stopped
+    ports:
+      - 27018:27017
+    networks:
+      - strapi-network
+
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.api
+    image: strapi-strapi-api
+    container_name: strapi-api
+    depends_on:
+      - mongodb
+    environment:
+      - STRAPI_DISABLE_UPDATE_NOTIFICATION=true
+      - STRAPI_HIDE_STARTUP_MESSAGE=true
+      - STRAPI_TELEMETRY_DISABLED=true
+      - PORT=1337
+      - DATABASE_HOST=mongodb
+      - DATABASE_PORT=27017
+      - DATABASE_NAME=strapi
+      - DATABASE_USERNAME=strapi
+      - DATABASE_PASSWORD=strapi
+
+      # Bỏ comment để tách riêng CMS Admin và API Server (1)
+      # - SERVE_ADMIN_PANEL=false
+      # - API_URL=http://mybackend.co:1338  # 
+      # - ADMIN_URL=http://myfrontend.co:8080
+
+    restart: unless-stopped
+    volumes:
+      - strapi-uploads:/app/public/uploads
+    ports:
+      - 1338:1337
+    networks:
+      - strapi-network
+
+  # Bỏ comment để tách riêng CMS Admin và API Server (1)
+  # admin:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile.admin
+  #     args:
+  #       - SERVE_ADMIN_PANEL=false
+  #       - API_URL=http://mybackend.co:1338
+  #   image: strapi-strapi-cms
+  #   container_name: strapi-cms
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8080:80
+  #   networks:
+  #     - strapi-network
