@@ -3,32 +3,24 @@
         "edit": [
             [
                 {
-                    "name": "title",
+                    "name": "favicon",
                     "size": 6
                 },
                 {
-                    "name": "description",
+                    "name": "siteName",
                     "size": 6
                 }
             ],
             [
                 {
-                    "name": "backImgUrl",
-                    "size": 6
-                },
-                {
-                    "name": "usedTimes",
-                    "size": 4
+                    "name": "defaultSeo",
+                    "size": 12
                 }
             ]
         ],
         "editRelations": [],
         "list": [
-            "id",
-            "title",
-            "backImgUrl",
-            "description",
-            "usedTimes"
+            "id"
         ]
     }
 }

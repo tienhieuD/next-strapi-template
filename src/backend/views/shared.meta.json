@@ -1,0 +1,22 @@
+{
+    "layouts": {
+        "list": [
+            "id",
+            "name",
+            "content"
+        ],
+        "editRelations": [],
+        "edit": [
+            [
+                {
+                    "name": "name",
+                    "size": 4
+                },
+                {
+                    "name": "content",
+                    "size": 8
+                }
+            ]
+        ]
+    }
+}

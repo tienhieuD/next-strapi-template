@@ -85,10 +85,24 @@ async function createEntry({ model, entry, files }) {
     }
 }
 
+async function configView(key, value) {
+    const pluginStore = await strapi.store({
+        environment: '',
+        type: 'plugin',
+        name: 'content_manager',
+    });
+    let data;
+    data = await pluginStore.get({ key });
+    data = { ...data, ...value };
+    return pluginStore.set({ key, value: data })
+}
+
+
 module.exports = {
     isFirstRun,
     setPublicPermissions,
     getFileSizeInBytes,
     getFileData,
-    createEntry
+    createEntry,
+    configView
 }

@@ -1,40 +1,38 @@
 "use strict";
 
-const { createEntry, getFileData, setPublicPermissions, isFirstRun } = require("./bootstrap/utils");
-const { global } = require("../../data/data.json");
+const {
+    createEntry,
+    getFileData,
+    setPublicPermissions,
+    isFirstRun,
+    configView
+} = require("./bootstrap/utils");
 
 
 async function importGlobal() {
-    const files = {
-        "favicon": getFileData("favicon.png"),
-        "defaultSeo.metaImage": getFileData("default-image.png"),
-    };
-    return createEntry({ model: "global", entry: global, files });
+    await createEntry({
+        model: "global", entry: require("../../data/data.json").global, files: {
+            "favicon": getFileData("favicon.png"),
+            "defaultSeo.metaImage": getFileData("default-image.png"),
+        }
+    });
 }
 
 async function importSeedData() {
-    // Create all entries
     await importGlobal();
 }
 
 async function configPublicPermisson() {
-    // Allow read of application content types
     await setPublicPermissions({
         global: ['find'],
     });
 }
 
-// async function configView() {
-//     const pluginStore = await strapi.store({
-//         environment: '',
-//         type: 'plugin',
-//         name: 'content_manager',
-//     });
-//     let key = "configuration_content_types::application::global.global"
-//     let data = await pluginStore.get({ key });
-//     data = { ...data, ...require("../../views/global.json") };
-//     return pluginStore.set({ key, value: data });
-// }
+async function configViews() {
+    await configView("configuration_content_types::application::global.global", require("../../views/global.json"))
+    await configView("configuration_components::shared.seo", require("../../views/shared.seo.json"))
+    await configView("configuration_components::shared.meta", require("../../views/shared.meta.json"))
+}
 
 module.exports = async () => {
     strapi.log.info('Bootstrap running...');
@@ -42,9 +40,8 @@ module.exports = async () => {
 
     if (shouldImportSeedData) {
         try {
-            strapi.log.info('Setting up the template...');
+            strapi.log.info('Setting up the seed data...');
             await importSeedData();
-            strapi.log.info('Ready to go');
         } catch (error) {
             strapi.log.info('Could not import seed data');
             strapi.log.error(error);
@@ -53,4 +50,9 @@ module.exports = async () => {
 
     strapi.log.info('Setting up the public permisson...');
     await configPublicPermisson()
+
+    strapi.log.info('Setting the admin layout...');
+    await configViews()
+
+    return strapi.log.info('Ready to go');
 };

@@ -1,0 +1,45 @@
+{
+    "layouts": {
+        "list": [
+            "id",
+            "metaTitle",
+            "metaDescription",
+            "metaImage"
+        ],
+        "editRelations": [],
+        "edit": [
+            [
+                {
+                    "name": "metaTitle",
+                    "size": 6
+                },
+                {
+                    "name": "metaDescription",
+                    "size": 6
+                }
+            ],
+            [
+                {
+                    "name": "metaImage",
+                    "size": 6
+                },
+                {
+                    "name": "preventIndexing",
+                    "size": 4
+                }
+            ],
+            [
+                {
+                    "name": "meta",
+                    "size": 12
+                }
+            ],
+            [
+                {
+                    "name": "structuredData",
+                    "size": 12
+                }
+            ]
+        ]
+    }
+}
